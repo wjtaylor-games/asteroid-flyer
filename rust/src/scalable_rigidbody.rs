@@ -6,7 +6,7 @@ use godot::global::randf_range;
 
 #[derive(GodotClass)]
 #[class(base=RigidBody3D)]
-struct ScalableRigidBody3D {
+pub struct ScalableRigidBody3D {
     #[export]
     #[var(get = get_children_scale, set = set_children_scale)]
     children_scale: Vector3,
@@ -67,5 +67,7 @@ impl ScalableRigidBody3D {
             }
         })
     }
-
 }
+
+
+

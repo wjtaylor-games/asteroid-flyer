@@ -7,7 +7,7 @@ use godot::builtin::Vector3;
 
 #[derive(GodotClass)]
 #[class(base=RigidBody3D)]
-struct SpaceShip {
+pub struct SpaceShip {
     #[export]
     torque_mag: f32,
     #[export]
