@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://sy5c0y3xepv0"]
+
+[ext_resource type="PackedScene" uid="uid://dwdqksip1uvaq" path="res://assets/simple_command_module.glb" id="1_5h3lj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5h3lj"]
+radius = 0.9127792
+
+[node name="PlayerSpaceShip" type="SpaceShip"]
+mass = 5.718
+gravity_scale = 0.0
+can_sleep = false
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="simple_command_module" parent="." instance=ExtResource("1_5h3lj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7535736, 0, 0, 0, 0.7535736, 0, 0, 0, 0.7535736, 0, -0.0018678308, 0)
+shape = SubResource("SphereShape3D_5h3lj")

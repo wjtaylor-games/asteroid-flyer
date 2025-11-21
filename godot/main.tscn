@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcydb7p7oy36a"]
+
+[ext_resource type="PackedScene" uid="uid://sy5c0y3xepv0" path="res://player_space_ship.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://w3r324d3i5j" path="res://assets/8k_stars_milky_way.jpg" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://c8wtu0mdju25l" path="res://asteroid_1.tscn" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://wtyddsnujhtj" path="res://music/elanhickler__archi_soundscape_space2.ogg" id="4_1bvp3"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h2yge"]
+panorama = ExtResource("2_0xm2m")
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("PanoramaSkyMaterial_h2yge")
+
+[sub_resource type="Environment" id="Environment_ig7tw"]
+background_mode = 2
+background_color = Color(0, 0, 0.43137255, 1)
+sky = SubResource("Sky_ig7tw")
+
+[node name="Main" type="Node3D"]
+
+[node name="PlayerSpaceShip" parent="." instance=ExtResource("1_ig7tw")]
+thrust_mag = 20.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.185, 0)
+
+[node name="Pivot" type="Node3D" parent="PlayerSpaceShip"]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4.3711392e-08, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="PlayerSpaceShip"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+spring_length = 15.0
+
+[node name="Spaceship Camera" type="Camera3D" parent="PlayerSpaceShip/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ig7tw")
+
+[node name="Asteroids" type="Node" parent="."]
+
+[node name="Asteroid_1" parent="Asteroids" instance=ExtResource("3_h2yge")]
+children_scale = Vector3(21, 21, 21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.421352, 0)
+angular_velocity = Vector3(0.034906585, 0.034906585, 0)
+
+[node name="Asteroid_5" parent="Asteroids" instance=ExtResource("3_h2yge")]
+children_scale = Vector3(21, 21, 21)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.421352, 80.818985)
+linear_velocity = Vector3(0, 0, -20)
+angular_velocity = Vector3(0.034906585, 0.034906585, 0)
+
+[node name="Asteroid_2" parent="Asteroids" instance=ExtResource("3_h2yge")]
+children_scale = Vector3(30, 30, 30)
+transform = Transform3D(0.24530742, -0.9449777, 0.21642876, 0, 0.22325009, 0.9747612, -0.96944535, -0.23911615, 0.054764904, 86.10239, 12.98106, -7.879898)
+angular_velocity = Vector3(0.02617994, -0.019198623, 0.0052359877)
+
+[node name="Asteroid_3" parent="Asteroids" instance=ExtResource("3_h2yge")]
+children_scale = Vector3(15, 15, 15)
+transform = Transform3D(0.99999994, 0, 2.6851257e-08, 2.6851257e-08, -3.449196e-08, -1, 0, 0.99999994, -3.449196e-08, 27.637089, 12.98106, 57.78516)
+angular_velocity = Vector3(-0.006981317, 0.022689281, -0.013962634)
+
+[node name="Asteroid_4" parent="Asteroids" instance=ExtResource("3_h2yge")]
+children_scale = Vector3(40, 40, 40)
+transform = Transform3D(0.70410705, 0.42177203, -0.57126313, 0.6236363, 0.017419703, 0.7815205, 0.33957472, -0.9065346, -0.25076702, -29.656551, -46.67927, 25.440464)
+angular_velocity = Vector3(-0.0017453292, 0.010471975, -0.03141593)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.37462276, 0, -0.9271773, 0, 1, 0, 0.9271773, 0, 0.37462276, 0, 0, 14.125919)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1bvp3")
+autoplay = true
+parameters/looping = true
