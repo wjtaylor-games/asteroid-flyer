@@ -8,6 +8,7 @@ points = PackedVector3Array(-0.36586618, -0.9210036, -0.47704962, 0.05414945, 1.
 [node name="Asteroid_1" type="ScalableRigidBody3D"]
 mass = 9500.863
 gravity_scale = 0.0
+linear_damp_mode = 1
 angular_damp_mode = 1
 
 [node name="Mesh" parent="." instance=ExtResource("1_vx7fk")]

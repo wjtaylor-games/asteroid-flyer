@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcydb7p7oy36a"]
+[gd_scene load_steps=8 format=3 uid="uid://dcydb7p7oy36a"]
 
 [ext_resource type="PackedScene" uid="uid://sy5c0y3xepv0" path="res://player_space_ship.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://w3r324d3i5j" path="res://assets/8k_stars_milky_way.jpg" id="2_0xm2m"]
@@ -15,32 +15,54 @@ background_mode = 2
 background_color = Color(0, 0, 0.43137255, 1)
 sky = SubResource("Sky_ig7tw")
 
-[node name="Main" type="Node3D"]
+[sub_resource type="Theme" id="Theme_h2yge"]
+Label/colors/font_color = Color(0, 0.8627451, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0.27058825, 0, 1)
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/font_sizes/font_size = 24
+
+[node name="MainScene" type="MainScene"]
 
 [node name="PlayerSpaceShip" parent="." instance=ExtResource("1_ig7tw")]
 thrust_mag = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.185, 0)
 
-[node name="Pivot" type="Node3D" parent="PlayerSpaceShip"]
-transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4.3711392e-08, 0, 0, 0)
-
-[node name="SpringArm3D" type="SpringArm3D" parent="PlayerSpaceShip"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-spring_length = 15.0
-
-[node name="Spaceship Camera" type="Camera3D" parent="PlayerSpaceShip/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ig7tw")
 
 [node name="AsteroidSpawner" type="AsteroidSpawner" parent="."]
-max_asteroids = 100
+max_asteroids = 50
+max_drift_vel = 20.0
+min_scale = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.37462276, 0, -0.9271773, 0, 1, 0, 0.9271773, 0, 0.37462276, 0, 0, 14.125919)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1bvp3")
 autoplay = true
 parameters/looping = true
+
+[node name="Hud" type="Hud" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NotifierLabel" type="Label" parent="Hud"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = SubResource("Theme_h2yge")
+text = "Hello There"
+horizontal_alignment = 1

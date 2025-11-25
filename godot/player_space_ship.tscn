@@ -6,6 +6,7 @@
 radius = 0.9127792
 
 [node name="PlayerSpaceShip" type="SpaceShip"]
+thrust_mag = 1000.0
 mass = 5.718
 gravity_scale = 0.0
 can_sleep = false
@@ -17,3 +18,11 @@ angular_damp_mode = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7535736, 0, 0, 0, 0.7535736, 0, 0, 0, 0.7535736, 0, -0.0018678308, 0)
 shape = SubResource("SphereShape3D_5h3lj")
+
+[node name="SpringArmPivot" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+spring_length = 15.0
+
+[node name="Spaceship Camera" type="Camera3D" parent="SpringArmPivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
