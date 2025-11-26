@@ -3,7 +3,6 @@ use godot::classes::{Node, INode, AudioStreamPlayer};
 use crate::hud::Hud;
 use crate::asteroid_spawner::AsteroidSpawner;
 use crate::spaceship::SpaceShip;
-use crate::spaceship::ViewMode;
 
 
 #[derive(GodotClass)]

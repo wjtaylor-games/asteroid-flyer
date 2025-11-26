@@ -38,7 +38,7 @@ impl ScalableRigidBody3D {
         // Set those children named "CollisionShape3D" and "Mesh"
         // to the new scale.
 
-        let collision_shape = self.base_mut().try_get_node_as::<Node3D>("CollisionShape3D");
+        let collision_shape = self.base_mut().try_get_node_as::<Node3D>("StaticBody3D");
         match collision_shape {
             Some(mut collision_shape) => collision_shape.set_scale(value),
             None => (),

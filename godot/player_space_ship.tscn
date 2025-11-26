@@ -22,6 +22,7 @@ shape = SubResource("SphereShape3D_5h3lj")
 [node name="SpringArmPivot" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+collision_mask = 2
 spring_length = 15.0
 
 [node name="Spaceship Camera" type="Camera3D" parent="SpringArmPivot/SpringArm3D"]
