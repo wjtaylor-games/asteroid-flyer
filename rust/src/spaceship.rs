@@ -3,7 +3,8 @@ use godot::classes::{RigidBody3D, IRigidBody3D, Input, InputEvent,
     InputEventMouseMotion, SpringArm3D};
 use godot::classes::input::MouseMode;
 use std::f32::consts::{TAU, PI};
-use godot::global::{wrapf, clampf};
+use godot::global::{wrapf};
+use num::clamp;
 
 use godot::builtin::Vector3;
 
@@ -17,9 +18,6 @@ pub enum ViewMode {
     Free,
 }
 
-impl ViewMode {
-
-}
 
 #[derive(GodotClass)]
 #[class(base=RigidBody3D)]
@@ -28,6 +26,13 @@ pub struct SpaceShip {
     torque_mag: f32,
     #[export]
     thrust_mag: f32,
+    // zoom distance per mouse wheel tick
+    #[export]
+    zoom_speed: f32,
+    #[export]
+    min_zoom: f32,
+    #[export]
+    max_zoom: f32,
     #[export]
     #[var(set = set_view_mode, get = get_view_mode)]
     view_mode: ViewMode,
@@ -46,6 +51,9 @@ impl IRigidBody3D for SpaceShip {
         Self {
             torque_mag: 1.00,
             thrust_mag: 200.0,
+            zoom_speed: 1.0,
+            min_zoom: 2.0,
+            max_zoom: 20.0,
             view_mode: ViewMode::Behind,
             spring_arm_pivot: OnReady::from_node("SpringArmPivot"),
             spring_arm: OnReady::from_node("SpringArmPivot/SpringArm3D"),
@@ -61,7 +69,7 @@ impl IRigidBody3D for SpaceShip {
         self.set_view_mode(self.view_mode);
     }
 
-    fn process(&mut self, _delta: f64) {
+    fn process(&mut self, _delta: f32) {
         let input = Input::singleton();
         // Toggle the view mode
         if input.is_action_just_pressed("switch_view") {
@@ -70,6 +78,22 @@ impl IRigidBody3D for SpaceShip {
                 ViewMode::Cockpit => ViewMode::Free,
                 ViewMode::Free => ViewMode::Behind,
             })
+        }
+        match self.view_mode {
+            ViewMode::Behind | ViewMode::Free => {
+                let curr_length = self.spring_arm.get_length();
+                let zoom_dir : f32 = (
+                    input.is_action_just_pressed("zoom_out") as i32 -
+                    input.is_action_just_pressed("zoom_in") as i32) as f32;
+                // godot_print_rich!("zoom_dir: {}", zoom_dir);
+                self.spring_arm.set_length(
+                    clamp::<f32>(
+                        curr_length + zoom_dir * self.zoom_speed,
+                        self.min_zoom, self.max_zoom
+                    )
+                );
+            },
+            _ => {}
         }
     }
 
@@ -107,8 +131,9 @@ impl IRigidBody3D for SpaceShip {
                 match self.view_mode {
                     ViewMode::Free => {
                         let mut rotation = self.spring_arm_pivot.get_rotation();
-                        rotation.x = clampf((rotation.x - e.get_relative().y * self.mouse_sensitivity)
-                            as f64, (-PI/2.0) as f64, (PI/2.0) as f64) as f32;
+                        rotation.x = clamp::<f32>(
+                            rotation.x - e.get_relative().y * self.mouse_sensitivity,
+                            -PI/2.0, PI/2.0);
                         rotation.y = wrapf((rotation.y - e.get_relative().x * self.mouse_sensitivity)
                             as f64, 0.0, TAU as f64) as f32;
                         self.spring_arm_pivot.set_rotation(rotation);

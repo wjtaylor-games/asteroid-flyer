@@ -6,7 +6,6 @@
 radius = 0.9127792
 
 [node name="PlayerSpaceShip" type="SpaceShip"]
-thrust_mag = 1000.0
 mass = 5.718
 gravity_scale = 0.0
 can_sleep = false
