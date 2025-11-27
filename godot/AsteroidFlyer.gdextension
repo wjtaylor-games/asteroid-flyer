@@ -6,8 +6,8 @@ reloadable = true
 [libraries]
 linux.debug.x86_64 =     "res://../rust/target/debug/libasteroid_flyer.so"
 linux.release.x86_64 =   "res://../rust/target/release/libasteroid_flyer.so"
-windows.debug.x86_64 =   "res://../rust/target/debug/asteroid_flyer.dll"
-windows.release.x86_64 = "res://../rust/target/release/asteroid_flyer.dll"
+windows.debug.x86_64 =   "res://../rust/target/x86_64-pc-windows-gnu/debug/asteroid_flyer.dll"
+windows.release.x86_64 = "res://../rust/target/x86_64-pc-windows-gnu/release/asteroid_flyer.dll"
 macos.debug =            "res://../rust/target/debug/libasteroid_flyer.dylib"
 macos.release =          "res://../rust/target/release/libasteroid_flyer.dylib"
 macos.debug.arm64 =      "res://../rust/target/debug/libasteroid_flyer.dylib"
