@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://sy5c0y3xepv0" path="res://player_space_ship.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://w3r324d3i5j" path="res://assets/8k_stars_milky_way.jpg" id="2_0xm2m"]
 [ext_resource type="AudioStream" uid="uid://ky4v0ovsdejc" path="res://music/elanhickler__archi_soundscape_space2.ogg" id="4_1bvp3"]
+[ext_resource type="Theme" uid="uid://dx3qttjopeqmp" path="res://themes/main.tres" id="4_lquwl"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h2yge"]
 panorama = ExtResource("2_0xm2m")
@@ -14,29 +15,6 @@ sky_material = SubResource("PanoramaSkyMaterial_h2yge")
 background_mode = 2
 background_color = Color(0, 0, 0.43137255, 1)
 sky = SubResource("Sky_ig7tw")
-
-[sub_resource type="Theme" id="Theme_h2yge"]
-Label/colors/font_color = Color(0, 0.8627451, 0, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/colors/font_shadow_color = Color(0, 0.27058825, 0, 1)
-Label/constants/shadow_offset_x = 2
-Label/constants/shadow_offset_y = 2
-Label/font_sizes/font_size = 24
-
-[sub_resource type="Animation" id="Animation_h2yge"]
-resource_name = "notification_fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("NotifierLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_1bvp3"]
 length = 0.001
@@ -51,6 +29,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h2yge"]
+resource_name = "notification_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotifierLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1bvp3"]
@@ -100,7 +93,7 @@ grow_vertical = 0
 pivot_offset = Vector2(699, -76)
 size_flags_horizontal = 3
 size_flags_vertical = 6
-theme = SubResource("Theme_h2yge")
+theme = ExtResource("4_lquwl")
 text = "Hello There"
 horizontal_alignment = 1
 
@@ -111,3 +104,21 @@ one_shot = true
 libraries = {
 &"": SubResource("AnimationLibrary_1bvp3")
 }
+
+[node name="InstructionsLabel" type="Label" parent="Hud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.017
+anchor_bottom = 0.017
+offset_left = 2.0
+offset_top = -9.016001
+offset_right = 397.0
+offset_bottom = 214.984
+grow_vertical = 2
+theme = ExtResource("4_lquwl")
+theme_override_font_sizes/font_size = 18
+text = "Pitch/Yaw: W A S D
+Roll: Q E
+Thrust: <space>
+Retro: <shift>
+Switch View: V"
